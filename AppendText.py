@@ -147,5 +147,6 @@ last_week = get_date(2)
 if not entry_made_for_week(two_weeks_ago) or not entry_made_for_week(last_week):
     # Open the file so the user can journal about stuff.
     webbrowser.open(JOURNAL_FILE)
-
-exit(0)
+    exit(0)
+else:
+    input("\n\n You're all up-to-date on your journal! ")
