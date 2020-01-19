@@ -149,4 +149,5 @@ if not entry_made_for_week(two_weeks_ago) or not entry_made_for_week(last_week):
     webbrowser.open(JOURNAL_FILE)
     exit(0)
 else:
-    input("\n\n You're all up-to-date on your journal! ")
+    print("\n\n Your journal has entries for the weeks of ", two_weeks_ago, " and ", last_week)
+    input()
