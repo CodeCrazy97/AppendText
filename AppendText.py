@@ -11,7 +11,8 @@
  07/21/2019 - Discovered a bug with the program computing the correct date.
  10/20/2019 - Added functionality for the script to open the "Weekly Report.txt" file for user to type,
  instead of prompting user to enter events from command line.
- 1/18/2019 - Checking to see if entries were made for two weeks ago.
+ 1/18/2020 - Checking to see if entries were made for two weeks ago.
+ 1/25/2020 - Ask user if he/she wants to create an entry for the current week.
 '''
 
 import webbrowser, os
@@ -148,13 +149,13 @@ two_weeks_ago = get_date(3)
 last_week = get_date(2)
 this_week = get_date(1)
 
+# Keeps up with whether the text file should be opened at end of program.
 open_file = False
 
 if not entry_made_for_week(two_weeks_ago) or not entry_made_for_week(last_week):
     # Open the file so the user can journal about stuff.
     open_file = True
 if not contains_entry(this_week):
-    print("\n\n Your journal has entries for the weeks of ", two_weeks_ago, " and ", last_week)
     print("\n An entry does not exist for the current week. Would you like to make one?\n (Y)es, (N)o")
     response = input(" ")
     if response[0].lower() == 'y':
@@ -167,3 +168,5 @@ if not contains_entry(this_week):
 
 if open_file:
     webbrowser.open(JOURNAL_FILE)
+else:
+    print("\n\n You're all caught up on your journal entries!");
