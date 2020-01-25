@@ -16,6 +16,7 @@
 
 import webbrowser, os
 from datetime import date
+import time
 
 # Before running this script, please change the below file path to point to your journal file.
 JOURNAL_FILE = "C:\\Users\\Ethan\\Documents\\Writings\\Weekly Report.txt"
@@ -123,16 +124,18 @@ If one has not been entered for week_of, then the initial prompt is written to t
 The function returns true or false, based on whether or not the journal entries file contains
 an entry for the week_of.
 '''
-def entry_made_for_week(week_of):
+def contains_entry(week_of):
     fo = open(JOURNAL_FILE, 'r')
     content = fo.read()
-    if ('*** Week of ' + week_of + ' ***') not in content:
+    fo.close()
+    return ('*** Week of ' + week_of + ' ***') in content
+
+def entry_made_for_week(week_of):
+    if not contains_entry(week_of):
         experiences = open(JOURNAL_FILE, 'a')
         experiences.writelines(str("\n\n*** Week of " + week_of + " ***\n"))
         experiences.close()
-        fo.close()
         return False
-    fo.close()
     return True
 
 if not os.path.exists(JOURNAL_FILE):
@@ -143,11 +146,24 @@ if not os.path.exists(JOURNAL_FILE):
 
 two_weeks_ago = get_date(3)
 last_week = get_date(2)
+this_week = get_date(1)
+
+open_file = False
 
 if not entry_made_for_week(two_weeks_ago) or not entry_made_for_week(last_week):
     # Open the file so the user can journal about stuff.
-    webbrowser.open(JOURNAL_FILE)
-    exit(0)
-else:
+    open_file = True
+if not contains_entry(this_week):
     print("\n\n Your journal has entries for the weeks of ", two_weeks_ago, " and ", last_week)
-    input()
+    print("\n An entry does not exist for the current week. Would you like to make one?\n (Y)es, (N)o")
+    response = input(" ")
+    if response[0].lower() == 'y':
+        entry_made_for_week(this_week)
+        # Open the file so the user can journal about stuff.
+        open_file = True
+    else:
+        print('\n\nBye!')
+        time.sleep(1)
+
+if open_file:
+    webbrowser.open(JOURNAL_FILE)
