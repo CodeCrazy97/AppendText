@@ -169,4 +169,6 @@ if not contains_entry(this_week):
 if open_file:
     webbrowser.open(JOURNAL_FILE)
 else:
-    print("\n\n You're all caught up on your journal entries!");
+    message = "\n\n You're all caught up on your journal entries for the weeks of " + two_weeks_ago + ", " + last_week + ", and " + this_week + ".";
+    print(message);
+    input()
