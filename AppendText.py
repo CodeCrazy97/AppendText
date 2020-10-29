@@ -13,6 +13,7 @@
  instead of prompting user to enter events from command line.
  1/18/2020 - Checking to see if entries were made for two weeks ago.
  1/25/2020 - Ask user if he/she wants to create an entry for the current week.
+ 10/29/2020 - Don't ask if user would like an entry for current week if the current day is not Saturday.
 '''
 
 import webbrowser, os
@@ -155,7 +156,9 @@ open_file = False
 if not entry_made_for_week(two_weeks_ago) or not entry_made_for_week(last_week):
     # Open the file so the user can journal about stuff.
     open_file = True
-if not contains_entry(this_week):
+
+# If there is not an entry for the current week and it is Saturday, then ask user if he/she would like an entry for the current week.
+if not contains_entry(this_week) and date.today().weekday() == 5:
     print("\n An entry does not exist for the current week. Would you like to make one?\n (Y)es, (N)o")
     response = input(" ")
     if response[0].lower() == 'y':
