@@ -134,9 +134,10 @@ def contains_entry(week_of):
 
 def entry_made_for_week(week_of):
     if not contains_entry(week_of):
-        experiences = open(JOURNAL_FILE, 'a')
-        experiences.writelines(str("\n\n*** Week of " + week_of + " ***\n"))
-        experiences.close()
+        experiences = open(JOURNAL_FILE, 'r+')
+        content = experiences.read()
+        experiences.seek(0, 0)
+        experiences.write(str("*** Week of " + week_of + " ***\n\n\n") + content)
         return False
     return True
 
